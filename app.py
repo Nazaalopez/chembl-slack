@@ -25,7 +25,7 @@ def chem():
         ret = resolve(text)
         if not ret:
             reply = "Provided identifier couldn't be resolved :("
-        else if ret.get(1):
+        elif ret.get(1):
             reply = ret.get(1)
         else:
             "This compound wasn't found in ChEMBL but it can be found in following databases:"
