@@ -33,5 +33,5 @@ def resolve(mystery):
         try:
             return {int(x['src_id']):x['src_compound_id'] for x in ret}
         except TypeError:
-            return {int(x['src_id']):x['src_compound_id'] for x in ret.items()[0][0]}
+            return {int(x['src_id']):x['src_compound_id'] for x in ret.items()[0][1]}
     return False
