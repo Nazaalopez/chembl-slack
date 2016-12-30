@@ -23,11 +23,11 @@ def chem():
     headers = {"user-agent": "IsitupForSlackPy/1.0"}
 
     # Check the token and make sure the request is from our team
-    if hasattr(request, 'form') and request.form['token'] == TOKEN:
+    if hasattr(request, 'forms') and request.forms['token'] == TOKEN:
         # We're just taking the text exactly as it's typed by the user.
         # If it's not a valid domain, isitup.org will respond with a `3`.
         # We want to get the JSON version back (you can also get plain text).
-        r = requests.get('https://isitup.org/' + request.form['text'] + '.json', headers=headers)
+        r = requests.get('https://isitup.org/' + request.forms['text'] + '.json', headers=headers)
         response_json = json.loads(r.text)
 
         # Build our response
@@ -47,7 +47,7 @@ def chem():
 
         elif response_json['status_code'] == 3:
             # Uh oh, isitup.org doesn't think the domain entered by the user is valid
-            reply = ":interrobang: *" + request.form['text'] + "* does not appear to be a valid domain. \n"
+            reply = ":interrobang: *" + request.forms['text'] + "* does not appear to be a valid domain. \n"
             reply += 'Please enter both the domain name AND suffix (example: *amazon.com* or *whitehouse.gov*).'
 
     else:
