@@ -13,9 +13,9 @@ from bottle import debug, request, route, response, get
 
 app = Bottle()
 
-TOKEN = ''
+TOKEN = 'dWwqGfNcPy2gcwZu41zc2BuN'
 
-@app.route('/isitup', methods=['POST'])
+@app.route('/chem', methods=['POST'])
 def isitup():
     # isitup.org doesn't require you to use API keys, but they do
     # require that any automated script send in a user agent string.
