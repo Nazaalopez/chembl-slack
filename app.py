@@ -4,30 +4,56 @@
 import os
 from os import environ as env
 from sys import argv
+import requests
+import json
 
 import bottle
-from bottle import default_app, request, route, response, get
+from bottle import Bottle
+from bottle import debug, request, route, response, get
 
-bottle.debug(True)
+app = Bottle()
 
-@get('/')
-def index():
-    response.content_type = 'text/plain; charset=utf-8'
-    ret =  'Hello world, I\'m %s!\n\n' % os.getpid()
-    ret += 'Request vars:\n'
-    for k, v in request.environ.iteritems():
-        if 'bottle.' in k:
-            continue
-        ret += '%s=%s\n' % (k, v)
+TOKEN = ''
 
-    ret += '\n'
-    ret += 'Environment vars:\n'
+@app.route('/isitup', methods=['POST'])
+def isitup():
+    # isitup.org doesn't require you to use API keys, but they do
+    # require that any automated script send in a user agent string.
+    # You can keep this one, or update it to something that makes more sense for you.
+    headers = {"user-agent": "IsitupForSlackPy/1.0"}
 
-    for k, v in env.iteritems():
-        if 'bottle.' in k:
-            continue
-        ret += '%s=%s\n' % (k, v)
+    # Check the token and make sure the request is from our team
+    if request.form['token'] == TOKEN:
+        # We're just taking the text exactly as it's typed by the user.
+        # If it's not a valid domain, isitup.org will respond with a `3`.
+        # We want to get the JSON version back (you can also get plain text).
+        r = requests.get('https://isitup.org/' + request.form['text'] + '.json', headers=headers)
+        response_json = json.loads(r.text)
 
-    return ret
+        # Build our response
+        # Note that we're using the text equivalent for an emoji at the start of each of the responses.
+        # You can use any emoji that is available to your Slack team, including the custom ones.
+        if not r.status_code:
+        	# isitup.org could not be reached
+            reply = "Ironically, isitup could not be reached."
 
-bottle.run(host='0.0.0.0', port=argv[1])
+        elif response_json['status_code'] == 1:
+            # Yay, the domain is up!
+            reply = ":thumbsup: I am happy to report that *<http://" + response_json['domain'] + "|" + response_json['domain'] + ">* is *up*!"
+
+        elif response_json['status_code'] == 2:
+            # Boo, the domain is down.
+            reply = ":disappointed: I am sorry to report that *<http://" + response_json['domain'] + "|" + response_json['domain'] + ">* is *not up*!"
+
+        elif response_json['status_code'] == 3:
+            # Uh oh, isitup.org doesn't think the domain entered by the user is valid
+            reply = ":interrobang: *" + request.form['text'] + "* does not appear to be a valid domain. \n"
+            reply += 'Please enter both the domain name AND suffix (example: *amazon.com* or *whitehouse.gov*).'
+
+    else:
+        reply = "The token for the slash command doesn't match. Check your script."
+
+    return reply
+
+debug(True)
+app.run(host='0.0.0.0', port=argv[1])
