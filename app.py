@@ -25,10 +25,12 @@ def chem():
         ret = resolve(text)
         if not ret:
             reply = "Provided identifier couldn't be resolved :("
-        elif ret.get(1):
-            reply = ret.get(1)
         else:
-            "This compound wasn't found in ChEMBL but it can be found in following databases:"
+            reply = ret
+        #elif ret.get(1):
+        #    reply = ret.get(1)
+        #else:
+        #    "This compound wasn't found in ChEMBL but it can be found in following databases:"
     return reply
 
 debug(True)
