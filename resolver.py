@@ -30,6 +30,8 @@ def resolve(mystery):
     else:
         ret = unichem.get(mystery)
     if ret:
-        return str(ret)
-        #return {int(x['src_id']):x['src_compound_id'] for x in ret}
+        try:
+            return {int(x['src_id']):x['src_compound_id'] for x in ret}
+        except TypeError:
+            return {int(x['src_id']):x['src_compound_id'] for x in ret.items()[0][0]}
     return False
