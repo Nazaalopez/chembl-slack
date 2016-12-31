@@ -41,7 +41,11 @@ def chem():
         else:    
             ret = resolve(text)
             if not ret:
-                return "Provided identifier couldn't be resolved :white_frowning_face:"
+                ret = molecule.search(text)
+                if not len(ret):
+                    return "Provided identifier couldn't be resolved :white_frowning_face:"
+                else:
+                    reply = ret[0]
             elif ret.get(1):
                 reply = molecule.get(ret.get(1))
         if reply:        
