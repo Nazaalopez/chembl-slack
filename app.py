@@ -73,17 +73,17 @@ def chem():
         elif ret.get(1):
             reply = molecule.get(ret.get(1))
             msg = MESSAGE_TEMPLATE.copy()
-            msg["attachments"]["author_name"] = reply["pref_name"]
-            msg["attachments"]["title"] = reply["molecule_chembl_id"]
-            msg["attachments"]["title_link"] = msg["attachments"]["title_link"].format(reply["molecule_chembl_id"])
-            msg["attachments"]["image_url"] = msg["attachments"]["image_url"].format(reply["molecule_chembl_id"])
-            msg["attachments"]["thumb_url"] = msg["attachments"]["thumb_url"].format(reply["molecule_chembl_id"])
-            msg["attachments"]["text"] = reply["molecule_structures"]["standard_inchi_key"]
-            msg["attachments"]["fields"][0]["value"] = reply["max_phase"]
-            msg["attachments"]["fields"][1]["value"] = reply["molecule_properties"]["full_molformula"]
-            msg["attachments"]["fields"][2]["value"] = reply["molecule_structures"]["canonical_smiles"]
-            msg["attachments"]["fields"][3]["value"] = reply["molecule_structures"]["standard_inchi"]
-            msg["attachments"]["ts"] = int(time.time())
+            msg["attachments"][0]["author_name"] = reply["pref_name"]
+            msg["attachments"][0]["title"] = reply["molecule_chembl_id"]
+            msg["attachments"][0]["title_link"] = msg["attachments"][0]["title_link"].format(reply["molecule_chembl_id"])
+            msg["attachments"][0]["image_url"] = msg["attachments"][0]["image_url"].format(reply["molecule_chembl_id"])
+            msg["attachments"][0]["thumb_url"] = msg["attachments"][0]["thumb_url"].format(reply["molecule_chembl_id"])
+            msg["attachments"][0]["text"] = reply["molecule_structures"]["standard_inchi_key"]
+            msg["attachments"][0]["fields"][0]["value"] = reply["max_phase"]
+            msg["attachments"][0]["fields"][1]["value"] = reply["molecule_properties"]["full_molformula"]
+            msg["attachments"][0]["fields"][2]["value"] = reply["molecule_structures"]["canonical_smiles"]
+            msg["attachments"][0]["fields"][3]["value"] = reply["molecule_structures"]["standard_inchi"]
+            msg["attachments"][0]["ts"] = int(time.time())
             response.content_type = 'application/json'
             return json.dumps(msg)
         else:
