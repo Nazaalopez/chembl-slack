@@ -17,8 +17,11 @@ class CorrectedUniChemClient(UniChemClient):
         #elif inchi_key_regex.match(pk):
         #    url = '{0}/inchikey/{1}'.format(self.base_url, pk)
         #else:
-        url = '{0}/orphanIdMap/{1}'.format(self.base_url, pk) 
-        return self._get_results(url)
+        url = '{0}/orphanIdMap/{1}'.format(self.base_url, pk)
+        try:
+            return self._get_results(url)
+        except:
+            return None
 
 unichem = CorrectedUniChemClient()    
     
