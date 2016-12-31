@@ -39,7 +39,7 @@ def resolve(mystery):
             pass
         if ret:
             return ret
-        ret = chembl_id_lookup(mystery)
+        ret = chembl_id_lookup.get(mystery)
         if ret:
             return ret['entity_type']
     inchi_key = None
