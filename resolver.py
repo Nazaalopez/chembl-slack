@@ -2,10 +2,10 @@ import re
 from chembl_webresource_client.utils import utils
 from chembl_webresource_client.unichem import UniChemClient
 
-from chembl_webresource_client.settings import Settings
-Settings.Instance().TOTAL_RETRIES = 1
-Settings.Instance().TIMEOUT = 0.5
-Settings.Instance().NEW_CLIENT_TIMEOUT = 0.5
+#from chembl_webresource_client.settings import Settings
+#Settings.Instance().TOTAL_RETRIES = 1
+#Settings.Instance().TIMEOUT = 0.5
+#Settings.Instance().NEW_CLIENT_TIMEOUT = 0.5
 
 inchi_key_regex = re.compile('[A-Z]{14}-[A-Z]{10}-[A-Z]')
 smilesRegex = re.compile(r'^([^J][.0-9BCGOHMNSEPRIFTLUA@+\-\[\]\(\)\\\/%=#$]+)$')
