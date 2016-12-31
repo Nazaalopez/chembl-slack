@@ -25,8 +25,8 @@ class CorrectedUniChemClient(UniChemClient):
 unichem = CorrectedUniChemClient()    
     
 def resolve(mystery):
-    if text.startswith('CHEMBL') or inchi_key_regex.match(text):
-        return molecule.get(text) 
+    if text.startswith('CHEMBL') or inchi_key_regex.match(mystery):
+        return molecule.get(mystery) 
     inchi_key = None
     if inchi_key_regex.match(mystery.upper()):
         inchi_key = mystery
