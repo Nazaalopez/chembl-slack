@@ -7,12 +7,12 @@ smilesRegex = re.compile(r'^([^J][.0-9BCGOHMNSEPRIFTLUA@+\-\[\]\(\)\\\/%=#$]+)$'
 
 class CorrectedUniChemClient(UniChemClient):
     def get(self, pk, src_id=None, to_src_id=None, all=False, url=False, verbose=False):
-        if pk.upper().startswith('CHEMBL'):
-            url = '{0}/src_compound_id/{1}/1'.format(self.base_url, pk)
-        elif inchi_key_regex.match(pk):
-            url = '{0}/inchikey/{1}'.format(self.base_url, pk)
-        else:
-            url = '{0}/orphanIdMap/{1}'.format(self.base_url, pk) 
+        #if pk.upper().startswith('CHEMBL'):
+        #    url = '{0}/src_compound_id/{1}/1'.format(self.base_url, pk)
+        #elif inchi_key_regex.match(pk):
+        #    url = '{0}/inchikey/{1}'.format(self.base_url, pk)
+        #else:
+        url = '{0}/orphanIdMap/{1}'.format(self.base_url, pk) 
         return self._get_results(url)
 
 unichem = CorrectedUniChemClient()    
