@@ -73,17 +73,17 @@ def chem():
         elif ret.get(1):
             reply = molecule.get(ret.get(1))
             msg = MESSAGE_TEMPLATE.copy()
-            msg["author_name"] = reply["pref_name"]
-            msg["title"] = reply["molecule_chembl_id"]
-            msg["title_link"] = msg["title_link"].format(reply["molecule_chembl_id"])
-            msg["image_url"] = msg["image_url"].format(reply["molecule_chembl_id"])
-            msg["thumb_url"] = msg["thumb_url"].format(reply["molecule_chembl_id"])
-            msg["text"] = reply["molecule_structures"]["standard_inchi_key"]
-            msg["fields"][0]["value"] = reply["max_phase"]
-            msg["fields"][1]["value"] = reply["molecule_properties"]["full_molformula"]
-            msg["fields"][2]["value"] = reply["molecule_structures"]["canonical_smiles"]
-            msg["fields"][3]["value"] = reply["molecule_structures"]["standard_inchi"]
-            msg["ts"] = int(time.time())
+            msg["attachments"]["author_name"] = reply["pref_name"]
+            msg["attachments"]["title"] = reply["molecule_chembl_id"]
+            msg["attachments"]["title_link"] = msg["attachments"]["title_link"].format(reply["molecule_chembl_id"])
+            msg["attachments"]["image_url"] = msg["attachments"]["image_url"].format(reply["molecule_chembl_id"])
+            msg["attachments"]["thumb_url"] = msg["attachments"]["thumb_url"].format(reply["molecule_chembl_id"])
+            msg["attachments"]["text"] = reply["molecule_structures"]["standard_inchi_key"]
+            msg["attachments"]["fields"][0]["value"] = reply["max_phase"]
+            msg["attachments"]["fields"][1]["value"] = reply["molecule_properties"]["full_molformula"]
+            msg["attachments"]["fields"][2]["value"] = reply["molecule_structures"]["canonical_smiles"]
+            msg["attachments"]["fields"][3]["value"] = reply["molecule_structures"]["standard_inchi"]
+            msg["attachments"]["ts"] = int(time.time())
             response.content_type = 'application/json'
             return json.dumps(msg)
         else:
