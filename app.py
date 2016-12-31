@@ -73,8 +73,8 @@ def chem():
         elif ret.get(1):
             reply = molecule.get(ret.get(1))
             msg = MESSAGE_TEMPLATE.copy()
-            msg['author_name'] = reply["pref_name"]
-            msg['title'] = reply["molecule_chembl_id"]
+            msg["author_name"] = reply["pref_name"]
+            msg["title"] = reply["molecule_chembl_id"]
             msg["title_link"] = msg["title_link"].format(reply["molecule_chembl_id"])
             msg["image_url"] = msg["image_url"].format(reply["molecule_chembl_id"])
             msg["thumb_url"] = msg["thumb_url"].format(reply["molecule_chembl_id"])
