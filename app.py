@@ -23,46 +23,7 @@ molecule.set_format('json')
 TOKEN = 'dWwqGfNcPy2gcwZu41zc2BuN'
 inchi_key_regex = re.compile('[A-Z]{14}-[A-Z]{10}-[A-Z]')
 
-MESSAGE_TEMPLATE = {
-    "attachments": [
-        {
-            "fallback": "Compound Report Card",
-            "color": "#009688",
-            "pretext": "Compound Report Card",
-            "author_name": "",
-            "title": "",
-            "title_link": "https://chembl-glados.herokuapp.com/compound_report_card/{0}/",
-            "text": "",
-            "fields": [
-                {
-                    "title": "Max Phase",
-                    "value": "",
-                    "short": True
-                },
-                {
-                    "title": "Molecular Formula",
-                    "value": "",
-                    "short": True
-                },
-                {
-                    "title": "Canonical SMILES",
-                    "value": "",
-                    "short": False
-                },
-                {
-                    "title": "Standard InChI",
-                    "value": "",
-                    "short": False
-                }				
-            ],
-            "image_url": "https://www.ebi.ac.uk/chembl/api/data/image/{0}.png?engine=indigo&ignoreCoords=1&dimensions=500",
-            "thumb_url": "https://www.ebi.ac.uk/chembl/api/data/image/{0}.png?engine=indigo&ignoreCoords=1&dimensions=50",
-            "footer": "ChEMBL API",
-            "footer_icon": "https://avatars0.githubusercontent.com/u/3062531?v=3&s=70",
-            "ts": None
-        }
-    ]
-}
+from compound_template import MESSAGE_TEMPLATE
 
 @app.post('/chem')
 def chem():
@@ -80,11 +41,12 @@ def chem():
                 reply = molecule.get(ret.get(1))
         if reply:        
             msg = MESSAGE_TEMPLATE.copy()
+            chembl_id = reply["molecule_chembl_id"]
             msg["attachments"][0]["author_name"] = reply["pref_name"]
-            msg["attachments"][0]["title"] = reply["molecule_chembl_id"]
-            msg["attachments"][0]["title_link"] = msg["attachments"][0]["title_link"].format(reply["molecule_chembl_id"])
-            msg["attachments"][0]["image_url"] = msg["attachments"][0]["image_url"].format(reply["molecule_chembl_id"])
-            msg["attachments"][0]["thumb_url"] = msg["attachments"][0]["thumb_url"].format(reply["molecule_chembl_id"])
+            msg["attachments"][0]["title"] = chembl_id
+            msg["attachments"][0]["title_link"] = msg["attachments"][0]["title_link"].format(chembl_id)
+            msg["attachments"][0]["image_url"] = msg["attachments"][0]["image_url"].format(chembl_id)
+            msg["attachments"][0]["thumb_url"] = msg["attachments"][0]["thumb_url"].format(chembl_id)
             msg["attachments"][0]["text"] = reply["molecule_structures"]["standard_inchi_key"]
             msg["attachments"][0]["fields"][0]["value"] = reply["max_phase"]
             msg["attachments"][0]["fields"][1]["value"] = reply["molecule_properties"]["full_molformula"]
