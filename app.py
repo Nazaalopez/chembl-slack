@@ -7,6 +7,7 @@ from sys import argv
 import requests
 import json
 import time
+import re
 
 import bottle
 from bottle import Bottle
@@ -20,6 +21,7 @@ molecule = new_client.molecule
 molecule.set_format('json')
 
 TOKEN = 'dWwqGfNcPy2gcwZu41zc2BuN'
+inchi_key_regex = re.compile('[A-Z]{14}-[A-Z]{10}-[A-Z]')
 
 MESSAGE_TEMPLATE = {
     "attachments": [
@@ -65,13 +67,18 @@ MESSAGE_TEMPLATE = {
 @app.post('/chem')
 def chem():
     # Check the token and make sure the request is from our team
+    reply = None
     if hasattr(request, 'forms') and request.forms['token'] == TOKEN:
         text = request.forms['text']
-        ret = resolve(text)
-        if not ret:
-            return "Provided identifier couldn't be resolved :white_frowning_face:"
-        elif ret.get(1):
-            reply = molecule.get(ret.get(1))
+        if text.startswith('CHEMBL') or inchi_key_regex.match(text):
+            reply = molecule.get(text)   
+        else:    
+            ret = resolve(text)
+            if not ret:
+                return "Provided identifier couldn't be resolved :white_frowning_face:"
+            elif ret.get(1):
+                reply = molecule.get(ret.get(1))
+        if reply:        
             msg = MESSAGE_TEMPLATE.copy()
             msg["attachments"][0]["author_name"] = reply["pref_name"]
             msg["attachments"][0]["title"] = reply["molecule_chembl_id"]
