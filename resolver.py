@@ -10,6 +10,8 @@ Settings.Instance().NEW_CLIENT_TIMEOUT = 0.5
 
 molecule = new_client.molecule
 molecule.set_format('json')
+chembl_id_lookup = new_client.chembl_id_lookup
+chembl_id_lookup.set_format('json')
 
 inchi_key_regex = re.compile('[A-Z]{14}-[A-Z]{10}-[A-Z]')
 smilesRegex = re.compile(r'^([^J][.0-9BCGOHMNSEPRIFTLUA@+\-\[\]\(\)\\\/%=#$]+)$')
@@ -32,6 +34,9 @@ def resolve(mystery):
         ret = molecule.get(mystery)
         if ret:
             return ret
+        ret = chembl_id_lookup(mystery)
+        if ret:
+            return ret['entity_type']
     inchi_key = None
     if inchi_key_regex.match(mystery.upper()):
         inchi_key = mystery
