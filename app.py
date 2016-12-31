@@ -28,7 +28,6 @@ def chem():
         if not ret:
             return "Provided identifier couldn't be resolved :white_frowning_face:"      
         msg = render_compound(ret)
-        chembl_id = reply["molecule_chembl_id"]
         response.content_type = 'application/json'
         return json.dumps(msg)
 
