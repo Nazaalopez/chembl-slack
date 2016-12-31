@@ -16,7 +16,10 @@ smilesRegex = re.compile(r'^([^J][.0-9BCGOHMNSEPRIFTLUA@+\-\[\]\(\)\\\/%=#$]+)$'
 
 class CorrectedUniChemClient(UniChemClient):
     def get(self, pk, src_id=None, to_src_id=None, all=False, url=False, verbose=False):
-        url = '{0}/orphanIdMap/{1}'.format(self.base_url, pk)
+        if inchi_key_regex.match(pk):
+            url = '{0}/inchikey/{1}'.format(self.base_url, pk)
+        else:    
+            url = '{0}/orphanIdMap/{1}'.format(self.base_url, pk)
         try:
             return self._get_results(url)
         except:
@@ -26,7 +29,9 @@ unichem = CorrectedUniChemClient()
     
 def resolve(mystery):
     if mystery.startswith('CHEMBL') or inchi_key_regex.match(mystery):
-        return molecule.get(mystery) 
+        ret = molecule.get(mystery)
+        if ret:
+            return ret
     inchi_key = None
     if inchi_key_regex.match(mystery.upper()):
         inchi_key = mystery
