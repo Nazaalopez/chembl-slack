@@ -1,20 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import os
-from os import environ as env
 from sys import argv
-import requests
 import json
 import time
 import re
 
-import bottle
 from bottle import Bottle
 from bottle import debug, request, route, response, post
-from chembl_webresource_client.new_client import new_client
 
 from resolver import resolve
+from chembl_webresource_client.new_client import new_client
 
 app = Bottle()
 molecule = new_client.molecule
@@ -23,10 +19,10 @@ molecule.set_format('json')
 TOKEN = 'dWwqGfNcPy2gcwZu41zc2BuN'
 inchi_key_regex = re.compile('[A-Z]{14}-[A-Z]{10}-[A-Z]')
 
-from chembl_webresource_client.settings import Settings
-Settings.Instance().TOTAL_RETRIES = 1
-Settings.Instance().TIMEOUT = 0.5
-Settings.Instance().NEW_CLIENT_TIMEOUT = 0.5
+#from chembl_webresource_client.settings import Settings
+#Settings.Instance().TOTAL_RETRIES = 1
+#Settings.Instance().TIMEOUT = 0.5
+#Settings.Instance().NEW_CLIENT_TIMEOUT = 0.5
 
 from compound_template import MESSAGE_TEMPLATE
 
