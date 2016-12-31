@@ -1,3 +1,9 @@
+from chembl_webresource_client.settings import Settings
+Settings.Instance().TOTAL_RETRIES = 1
+Settings.Instance().TIMEOUT = 0.5
+Settings.Instance().NEW_CLIENT_TIMEOUT = 0.5
+Settings.Instance().BACKOFF_FACTOR = 0
+
 import re
 from chembl_webresource_client.utils import utils
 from chembl_webresource_client.new_client import new_client
@@ -7,8 +13,6 @@ molecule = new_client.molecule
 molecule.set_format('json')
 chembl_id_lookup = new_client.chembl_id_lookup
 chembl_id_lookup.set_format('json')
-
-from chembl_webresource_client.settings import Settings
 
 inchi_key_regex = re.compile('[A-Z]{14}-[A-Z]{10}-[A-Z]')
 smilesRegex = re.compile(r'^([^J][.0-9BCGOHMNSEPRIFTLUA@+\-\[\]\(\)\\\/%=#$]+)$')
@@ -27,9 +31,6 @@ class CorrectedUniChemClient(UniChemClient):
 unichem = CorrectedUniChemClient()    
     
 def resolve(mystery):
-    Settings.Instance().TOTAL_RETRIES = 1
-    Settings.Instance().TIMEOUT = 0.5
-    Settings.Instance().NEW_CLIENT_TIMEOUT = 0.5
     
     if mystery.startswith('CHEMBL') or inchi_key_regex.match(mystery):
         ret = None
