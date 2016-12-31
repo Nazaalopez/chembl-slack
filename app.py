@@ -35,22 +35,22 @@ MESSAGE_TEMPLATE = {
                 {
                     "title": "Max Phase",
                     "value": "",
-                    "short": true
+                    "short": True
                 },
                 {
                     "title": "Molecular Formula",
                     "value": "",
-                    "short": true
+                    "short": True
                 },
                 {
                     "title": "Canonical SMILES",
                     "value": "",
-                    "short": false
+                    "short": False
                 },
                 {
                     "title": "Standard InChI",
                     "value": "",
-                    "short": false
+                    "short": False
                 }				
             ],
             "image_url": "https://www.ebi.ac.uk/chembl/api/data/image/{0}.png?engine=indigo&ignoreCoords=1&dimensions=500",
@@ -69,7 +69,7 @@ def chem():
         text = request.forms['text']
         ret = resolve(text)
         if not ret:
-            return "Provided identifier couldn't be resolved :("
+            return "Provided identifier couldn't be resolved :white_frowning_face:"
         elif ret.get(1):
             reply = molecule.get(ret.get(1))
             msg = MESSAGE_TEMPLATE.copy()
