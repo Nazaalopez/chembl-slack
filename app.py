@@ -26,7 +26,9 @@ def chem():
         text = request.forms['text']  
         ret = resolve(text)
         if not ret:
-            return "Provided identifier couldn't be resolved :white_frowning_face:"      
+            return "Provided identifier couldn't be resolved :white_frowning_face:"   
+        if isinstance(ret, basestring):
+            return ret
         msg = render_compound(ret)
         response.content_type = 'application/json'
         return json.dumps(msg)
