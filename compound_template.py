@@ -1,8 +1,8 @@
 MESSAGE_TEMPLATE = {
+    "response_type": "in_channel",
     "attachments": [
         {
             "fallback": "Compound Report Card",
-            "response_type": "in_channel",
             "color": "#009688",
             "pretext": "Compound Report Card",
             "author_name": "",
