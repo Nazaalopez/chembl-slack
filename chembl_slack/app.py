@@ -7,22 +7,38 @@ import json
 from bottle import Bottle
 from bottle import debug, request, route, response, post
 
+from bottle import run
+from optparse import OptionParser
+
 from resolver import resolve
 from chembl_webresource_client.new_client import new_client
 
-app = Bottle()
+from compound_view import render_compound
+from . import app, config
+
 molecule = new_client.molecule
 molecule.set_format('json')
 
 TOKEN = 'dWwqGfNcPy2gcwZu41zc2BuN'
 
-from compound_view import render_compound
+#-----------------------------------------------------------------------------------------------------------------------
+
+parser = OptionParser()
+parser.add_option("-c", "--config", dest="config_path",
+              help="path to config file", default="slack.conf")
+
+(options, args) = parser.parse_args()
+conf_path = options.config_path
+
+config.load_config(conf_path)
+
+#-----------------------------------------------------------------------------------------------------------------------
 
 @app.post('/chem')
 def chem():
     # Check the token and make sure the request is from our team
     reply = None
-    if hasattr(request, 'forms') and request.forms['token'] == TOKEN:
+    if hasattr(request, 'forms') and request.forms['token'] == config.get('token'):
         text = request.forms['text']  
         ret = resolve(text)
         if not ret:
@@ -35,3 +51,11 @@ def chem():
 
 debug(True)
 app.run(host='0.0.0.0', port=argv[1])
+
+def main():
+    run(app=app, host=config.get('bottle_host', '0.0.0.0'), port=argv[1],
+                                debug=config.get('debug', True), server=config.get('server_middleware', 'tornado'))
+
+if __name__ == "__main__":
+    main()
+    
