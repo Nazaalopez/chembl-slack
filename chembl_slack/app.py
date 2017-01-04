@@ -49,9 +49,6 @@ def chem():
         response.content_type = 'application/json'
         return json.dumps(msg)
 
-debug(True)
-app.run(host='0.0.0.0', port=argv[1])
-
 def main():
     run(app=app, host=config.get('bottle_host', '0.0.0.0'), port=argv[1],
                                 debug=config.get('debug', True), server=config.get('server_middleware', 'tornado'))
