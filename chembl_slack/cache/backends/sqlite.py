@@ -11,8 +11,8 @@ from Queue import Queue
 import base64
 import sqlite3
 from datetime import datetime
-from chembl_beaker.beaker.cache.backends.base import BaseCache
-from chembl_beaker.beaker import config
+from chembl_slack.cache.backends.base import BaseCache
+from chembl_slack import config
 import pytz
 
 #-----------------------------------------------------------------------------------------------------------------------
