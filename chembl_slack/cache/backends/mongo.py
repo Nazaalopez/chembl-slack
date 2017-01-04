@@ -9,11 +9,11 @@ except ImportError:
 import base64
 import pymongo
 from datetime import datetime, timedelta
-from chembl_beaker.beaker.cache.backends.base import BaseCache
+from chembl_slack.cache.backends.base import BaseCache
 import zlib
 import logging
 import json
-from chembl_beaker.beaker import config
+from chembl_slack import config
 
 #-----------------------------------------------------------------------------------------------------------------------
 
