@@ -48,6 +48,7 @@ def chem():
         if isinstance(ret, basestring):
             return ret
         msg = render_compound(ret)
+        msg["response_type"] = config.get('response_type', 'ephemeral')
         response.content_type = 'application/json'
         return json.dumps(msg)
 
