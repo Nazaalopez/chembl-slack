@@ -23,7 +23,7 @@ if not os.path.isfile(conf_path):
     raise Exception("file {0} not found...".format(conf_path))
 
 config.load_config(conf_path)
-loadPlugins([])
+loadPlugins(app, [])
 
 #-----------------------------------------------------------------------------------------------------------------------
 
