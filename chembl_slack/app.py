@@ -14,7 +14,7 @@ from resolver import resolve
 from chembl_webresource_client.new_client import new_client
 
 from compound_view import render_compound
-from . import app, config
+from chembl_slack import app, config
 
 molecule = new_client.molecule
 molecule.set_format('json')
