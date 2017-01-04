@@ -10,5 +10,5 @@ class Authorize(object):
             if hasattr(request, 'forms') and 'token' in request.forms and request.forms['token'] == config.get('token'):
                 return fn(*args, **kwargs)
             response.status = 401
-                return "Not authorized"
+            return "Not authorized"
         return _authorize
