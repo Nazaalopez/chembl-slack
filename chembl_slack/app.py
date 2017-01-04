@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import os.path
 from sys import argv
 import json
 
@@ -29,6 +30,9 @@ parser.add_option("-c", "--config", dest="config_path",
 
 (options, args) = parser.parse_args()
 conf_path = options.config_path
+
+if not os.path.isfile(conf_path):
+    raise Exception("file {0} not found...".format(conf_path))
 
 config.load_config(conf_path)
 
