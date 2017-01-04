@@ -8,9 +8,9 @@ try:
 except ImportError:
     import pickle
 
-from chembl_beaker.beaker.cache.backends.base import BaseCache
-from chembl_beaker.beaker import config
-from chembl_beaker.beaker.utils.functional import cached_property
+from chembl_slack.cache.backends.base import BaseCache
+from chembl_slack import config
+from chembl_slack.utils.functional import cached_property
 
 #-----------------------------------------------------------------------------------------------------------------------
 
