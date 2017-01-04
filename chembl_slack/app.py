@@ -26,7 +26,7 @@ TOKEN = 'dWwqGfNcPy2gcwZu41zc2BuN'
 
 parser = OptionParser()
 parser.add_option("-c", "--config", dest="config_path",
-              help="path to config file", default="slack.conf")
+              help="path to config file", default="chembl_slack/slack.conf")
 
 (options, args) = parser.parse_args()
 conf_path = options.config_path
