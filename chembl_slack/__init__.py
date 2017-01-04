@@ -15,6 +15,7 @@ config = app.config
 DEFAULT_PLUGINS = [
     'chembl_slack.plugins.authorize.Authorize',
     'chembl_slack.plugins.serialize.Serialize',
+    'chembl_slack.plugins.caching.Caching',
 ]
 
 #-----------------------------------------------------------------------------------------------------------------------
