@@ -1,5 +1,5 @@
-from bottle import request, response, install
-from chembl_slack import app, config
+from bottle import request, response
+from chembl_slack import config
 
 def authorize(callback):
     def wrapper(*args, **kwargs):
