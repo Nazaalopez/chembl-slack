@@ -8,7 +8,7 @@ class Serialize(object):
 
     def apply(self, fn, context):
         def _serialize(*args, **kwargs):
-            body = return fn(*args, **kwargs)
+            body = fn(*args, **kwargs)
             if isinstance(body, basestring):
                 return body
             elif isinstance(body, dict):
