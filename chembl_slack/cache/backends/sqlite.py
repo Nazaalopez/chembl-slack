@@ -61,7 +61,7 @@ class MultiThreadOK(Thread):
 class SQLiteCache(BaseCache):
     def __init__(self):
         super(SQLiteCache, self).__init__()
-        self._table = config.get('sqlite_cache_table', 'beaker_cache')
+        self._table = config.get('sqlite_cache_table', 'chembl_slack_cache')
         self.sql = MultiThreadOK(config.get('sqlite_dbfile', ':memory:'))
         self.sql.execute("CREATE TABLE IF NOT EXISTS %s (cache_key varchar(255) PRIMARY KEY NOT NULL, value text, expires datetime NOT NULL)" % self._table)
 
