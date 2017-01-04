@@ -3,6 +3,7 @@ from resolver import resolve
 from chembl_webresource_client.new_client import new_client
 from bottle import debug, request, route, response, post
 from chembl_slack import app, config
+from compound_view import render_compound
 
 @app.post('/chem')
 def chem():
