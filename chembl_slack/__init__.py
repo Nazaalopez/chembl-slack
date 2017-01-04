@@ -3,11 +3,32 @@ import os
 import sys
 import bottle
 from bottle import Bottle
+from utils import import_class
 
 #-----------------------------------------------------------------------------------------------------------------------
 
 app = Bottle()
 config = app.config
+
+#-----------------------------------------------------------------------------------------------------------------------
+
+DEFAULT_PLUGINS = [
+    'chembl_slack.plugins.authorize.Authorize',
+    'chembl_slack.plugins.serialize.Serialize',
+]
+
+#-----------------------------------------------------------------------------------------------------------------------
+
+def loadPlugins(app, plugins):
+    if not plugins:
+        plugins = DEFAULT_PLUGINS
+    for plugin in plugins:
+        try:
+            plugin_class = import_class(plugin)
+            app.install(plugin_class())
+        except Exception as e:
+            print "Failed to load plugin %s because of error %s" % (plugin, e.message)
+            continue
 
 #-----------------------------------------------------------------------------------------------------------------------
 
