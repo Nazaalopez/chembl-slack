@@ -42,6 +42,8 @@ def resolve(mystery):
             return ret
         ret = chembl_id_lookup.get(mystery)
         if ret:
+            if ret['status'].lower() == 'inactive':
+                return False
             return ret['entity_type']
     inchi_key = None
     if inchi_key_regex.match(mystery.upper()):
