@@ -1,7 +1,7 @@
 from model import resolve
 from controller import render_compound
 from bottle import request
-
+from chembl_slack import app
 
 @app.post('/chem')
 def chem():
