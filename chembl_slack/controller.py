@@ -1,6 +1,6 @@
 import time
 
-from compound_template import MESSAGE_TEMPLATE
+from templates.compound_template import MESSAGE_TEMPLATE
 
 def render_compound(context):
     msg = MESSAGE_TEMPLATE.copy()
