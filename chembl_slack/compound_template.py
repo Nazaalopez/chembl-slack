@@ -1,5 +1,4 @@
 MESSAGE_TEMPLATE = {
-    "response_type": "in_channel",
     "attachments": [
         {
             "fallback": "Compound Report Card",
