@@ -1,8 +1,8 @@
 __author__ = 'mnowotka'
 
-from chembl_beaker.beaker import config
-from chembl_beaker.beaker.utils import import_class
-from chembl_beaker.beaker.cache.backends.base import BaseCache
+from chembl_slack import config
+from chembl_slack.utils import import_class
+from chembl_slack.cache.backends.base import BaseCache
 
 cache = None
 
