@@ -3,22 +3,12 @@
 
 import os.path
 from sys import argv
-import json
-
-from bottle import Bottle
-from bottle import debug, request, route, response, post
 
 from bottle import run
 from optparse import OptionParser
 
-from resolver import resolve
-from chembl_webresource_client.new_client import new_client
-
-from compound_view import render_compound
 from chembl_slack import app, config
-
-molecule = new_client.molecule
-molecule.set_format('json')
+from chembl_slack import views
 
 #-----------------------------------------------------------------------------------------------------------------------
 
@@ -35,22 +25,6 @@ if not os.path.isfile(conf_path):
 config.load_config(conf_path)
 
 #-----------------------------------------------------------------------------------------------------------------------
-
-@app.post('/chem')
-def chem():
-    # Check the token and make sure the request is from our team
-    reply = None
-    if hasattr(request, 'forms') and request.forms['token'] == config.get('token'):
-        text = request.forms['text']  
-        ret = resolve(text)
-        if not ret:
-            return "Provided identifier couldn't be resolved :white_frowning_face:"   
-        if isinstance(ret, basestring):
-            return ret
-        msg = render_compound(ret)
-        msg["response_type"] = config.get('response_type', 'ephemeral')
-        response.content_type = 'application/json'
-        return json.dumps(msg)
 
 def main():
     run(app=app, host=config.get('bottle_host', '0.0.0.0'), port=argv[1],
