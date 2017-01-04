@@ -5,9 +5,9 @@ try:
 except ImportError:
     import pickle
 import time
-from chembl_beaker.beaker.cache.backends.base import BaseCache
-from chembl_beaker.beaker.utils.synch import RWLock
-from chembl_beaker.beaker import config
+from chembl_slack.cache.backends.base import BaseCache
+from chembl_slack.utils.synch import RWLock
+from chembl_slack import config
 
 #-----------------------------------------------------------------------------------------------------------------------
 
