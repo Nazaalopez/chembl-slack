@@ -7,7 +7,7 @@ from sys import argv
 from bottle import run
 from optparse import OptionParser
 
-from chembl_slack import app, config
+from chembl_slack import app, config, loadPlugins
 from chembl_slack import views
 
 #-----------------------------------------------------------------------------------------------------------------------
@@ -23,6 +23,7 @@ if not os.path.isfile(conf_path):
     raise Exception("file {0} not found...".format(conf_path))
 
 config.load_config(conf_path)
+loadApps([])
 
 #-----------------------------------------------------------------------------------------------------------------------
 
