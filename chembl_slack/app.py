@@ -20,8 +20,6 @@ from chembl_slack import app, config
 molecule = new_client.molecule
 molecule.set_format('json')
 
-TOKEN = 'dWwqGfNcPy2gcwZu41zc2BuN'
-
 #-----------------------------------------------------------------------------------------------------------------------
 
 parser = OptionParser()
@@ -41,10 +39,7 @@ config.load_config(conf_path)
 @app.post('/chem')
 def chem():
     # Check the token and make sure the request is from our team
-    print "checking heroku logs..."
     reply = None
-    print str(config)
-    print dir(config)
     if hasattr(request, 'forms') and request.forms['token'] == config.get('token'):
         text = request.forms['text']  
         ret = resolve(text)
