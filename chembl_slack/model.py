@@ -1,7 +1,7 @@
 from chembl_webresource_client.settings import Settings
 Settings.Instance().TOTAL_RETRIES = 1
-Settings.Instance().TIMEOUT = 1.5
-Settings.Instance().NEW_CLIENT_TIMEOUT = 1.5
+Settings.Instance().TIMEOUT = 3.0
+Settings.Instance().NEW_CLIENT_TIMEOUT = 3.0
 Settings.Instance().BACKOFF_FACTOR = 0
 
 import re
