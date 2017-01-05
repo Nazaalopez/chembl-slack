@@ -37,12 +37,12 @@ def resolve(mystery):
         except:
             pass
         if ret:
-            return ret
+            return 'COMPOUND', ret
         ret = chembl_id_lookup.get(mystery)
         if ret:
             if ret['status'].lower() == 'inactive':
                 return False
-            return ret['entity_type']
+            return ret['entity_type'], ret['chembl_id']
     inchi_key = None
     if inchi_key_regex.match(mystery.upper()):
         inchi_key = mystery
@@ -61,11 +61,11 @@ def resolve(mystery):
             mappings = {int(x['src_id']):x['src_compound_id'] for x in ret.items()[0][1]}
         if mappings.get(1):
             try:
-                return molecule.get(mappings.get(1))
+                return 'COMPOUND', molecule.get(mappings.get(1))
             except:
                 pass
     else:
         ret = molecule.search(mystery)
         if len(ret):
-            return ret[0]
+            return 'COMPOUND', ret[0]
     return False
