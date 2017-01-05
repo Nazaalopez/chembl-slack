@@ -41,7 +41,7 @@ MESSAGE_TEMPLATE = {
     ]
 }
 
-def render_compound(context):
+def render(context):
     msg = MESSAGE_TEMPLATE.copy()
     chembl_id = context["molecule_chembl_id"]
     msg["attachments"][0]["author_name"] = context["pref_name"]
